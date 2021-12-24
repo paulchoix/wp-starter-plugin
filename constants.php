@@ -11,7 +11,6 @@ class Constants
     public static $slug = 'starter-plugin';
     public static $snake = 'starter_plugin';
     public static $settings = 'starter_plugin_settings';
-    public static $text_domain = 'starter-plugin';
 
     /**
      * Database

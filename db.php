@@ -1,6 +1,8 @@
 <?php
 namespace Starter_Plugin\DB;
 
+use Starter_Plugin\Constants;
+
 /**
  * From https://codex.wordpress.org/Creating_Tables_with_Plugins
  * You must put each field on its own line in your SQL statement.
@@ -13,11 +15,13 @@ namespace Starter_Plugin\DB;
  * You must specify the length of all fields that accept a length parameter. int(11), for example.
  */
 
- 
+
 function setup()
 {
-    $database_tables = new \Starter_Plugin\DB\DatabaseTables();
-    $database_tables->run();
+    $database_tables = new DatabaseTables();
+    $result = $database_tables->run();
+
+    // [TODO] Handle errors in $result
 }
 
 
@@ -45,7 +49,7 @@ class DatabaseTables
     {
         global $wpdb;
         $this->charset_collate = $wpdb->get_charset_collate();
-        $this->prefix = $wpdb->prefix . \Starter_Plugin\Constants::$db_prefix;
+        $this->prefix = $wpdb->prefix . Constants::$db_prefix;
     }
 
     public function run()

@@ -1,15 +1,16 @@
 <?php
 namespace Starter_Plugin\Models;
 
+use Starter_Plugin\Constants;
 
 // [WARNING] Should results always be returned as associative arrays?
-class BaseModel
+class Base_Model
 {
-    // 
+    // To be inherited when extending Base_Model
     protected $db_prefix;
     protected $table_string;
 
-    // To be defined when extending BaseModel
+    // To be defined when extending Base_Model
     protected $table; // string
     protected $get_fields; // array of strings
     protected $post_fields; // array of strings
@@ -19,7 +20,7 @@ class BaseModel
     function __construct()
     {
         global $wpdb;
-        $this->db_prefix = $wpdb->prefix . \Starter_Plugin\Constants::$db_prefix;
+        $this->db_prefix = $wpdb->prefix . Constants::$db_prefix;
         $this->table_string = $this->db_prefix . $this->table;
     }
 
