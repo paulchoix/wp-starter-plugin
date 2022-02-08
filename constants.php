@@ -26,7 +26,7 @@ class Constants
      * API
      * Unless a different value is provided to distinguish between versions, api_version defaults to 1
      */
-    public static $api_endpoint;
+    public static $api_endpoint = 'starter-plugin';
     public $api_version;
 
     function __construct( array $args = [] )
