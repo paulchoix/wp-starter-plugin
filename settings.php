@@ -23,7 +23,7 @@ function init()
         ['label_for' => 'starter_field']
     );*/
 }
-add_action( 'admin_init', __NAMESPACE__ . '\\init' );
+//add_action( 'admin_init', __NAMESPACE__ . '\\init' );
 
 /*function starter_section_callback()
 {
@@ -71,4 +71,4 @@ function page()
         'dashicons-admin-settings' // For more Dashicons: https://developer.wordpress.org/resource/dashicons/
     );
 }
-add_action( 'admin_menu', __NAMESPACE__ . '\\page' );
+//add_action( 'admin_menu', __NAMESPACE__ . '\\page' );

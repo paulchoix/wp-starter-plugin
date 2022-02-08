@@ -70,6 +70,7 @@ class Base_Model
     }
 
     // Inserts or updates a row
+    // [TODO] It's always advised to use $wpdb->prepare when you are taking input from user. See: https://wordpress.stackexchange.com/questions/149711/wpdbprepare-was-called-incorrectly
     public function post( $data, int $id = null, $id_key = 'id', $slug_key = 'slug' )
     {
         global $wpdb;

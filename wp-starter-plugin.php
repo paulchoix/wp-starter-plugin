@@ -72,8 +72,8 @@ function script_modify( $tag, $handle, $src )
 {
     if ( $handle !== Constants::$slug . '-js' && $handle !== Constants::$slug . '-js-admin' ) return $tag;
     
-    $CONSTANTS = new Constants;
-    $api_endpoint = get_home_url() . '/wp-json/' . $CONSTANTS::$api_endpoint . '/v' . $CONSTANTS::$api_version;
+    $CONSTANTS = new Constants();
+    $api_endpoint = get_home_url() . '/wp-json/' . $CONSTANTS::$api_endpoint . '/v' . $CONSTANTS->api_version;
     return sprintf( '<script id="%s" src="%s" type="module" data-api="%s"></script>', $handle, esc_url( $src ), $api_endpoint );
 }
 add_filter( 'script_loader_tag', __NAMESPACE__ . '\\script_modify', 10, 3 );
@@ -81,13 +81,13 @@ add_filter( 'script_loader_tag', __NAMESPACE__ . '\\script_modify', 10, 3 );
 
 // Register API routes
 add_action('rest_api_init', function () {
-    $constants = new Constants;
+    $CONSTANTS = new Constants();
     
-    register_rest_route( Constants::$api_endpoint . '/v' . $constants->api_version, 'resource', array(
+    /*register_rest_route( Constants::$api_endpoint . '/v' . $constants->api_version, 'resource', [
       'methods' => 'GET',
       'callback' => 'function',
       'permission_callback' => '__return_true', // This makes the endpoint public
-    ));
+    ]);*/
 });
 
 
