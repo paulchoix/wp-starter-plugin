@@ -1,23 +1,22 @@
 <?php
+namespace Starter_Plugin\Settings;
 
-namespace Pivot_Multimedia\Settings;
-
-use Pivot_Multimedia\Constants;
+use Starter_Plugin\Constants;
 
 // Register configuration options
 function init()
 {
-    register_setting(Constants::$snake, Constants::$settings, ['type' => 'object']);
+    register_setting( Constants::$snake, Constants::$settings, ['type' => 'object']);
 
     /*add_settings_section(
         'starter_section',
-        __( 'Pivot Multimedia Section', 'pivot-multimedia' ),
+        __( 'Starter Plugin Section', 'starter-plugin' ),
         __NAMESPACE__ . '\\starter_section_callback',
         Constants::$snake
     );
     add_settings_field(
         'starter_field',
-        __( 'Pivot Multimedia Field', 'pivot-multimedia' ),
+        __( 'Starter Plugin Field', 'starter-plugin' ),
         __NAMESPACE__ . '\\starter_field_callback',
         Constants::$snake,
         'section',
@@ -28,7 +27,7 @@ function init()
 
 /*function starter_section_callback()
 {
-    _e( '<p>Description for the Pivot Multimedia section.</p>', 'pivot-multimedia' );
+    _e( '<p>Description for the starter plugin section.</p>', 'starter-plugin' );
 }
 
 function starter_field_callback( $args )
@@ -46,26 +45,26 @@ function starter_field_callback( $args )
 // Settings Page
 function page_html()
 {
-    if (!current_user_can('manage_options')) return;
-?>
+    if ( !current_user_can( 'manage_options' ) ) return;
+    ?>
     <div class="wrap">
-        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
         <form action="options.php" method="post">
             <?php
-            settings_fields(Constants::$snake);
-            do_settings_sections(Constants::$snake);
-            submit_button(__('Save', 'pivot-multimedia'));
+            settings_fields( Constants::$snake );
+            do_settings_sections( Constants::$snake );
+            submit_button( __( 'Save', 'starter-plugin' ) );
             ?>
         </form>
     </div>
-<?php
+    <?php
 }
 
 function page()
 {
     add_menu_page(
-        __('Pivot Multimedia', 'pivot-multimedia'),
-        __('Pivot Multimedia', 'pivot-multimedia'),
+        __( 'Starter Plugin', 'starter-plugin' ),
+        __( 'Starter Plugin', 'starter-plugin' ),
         'manage_options',
         Constants::$snake,
         __NAMESPACE__ . '\\page_html',
