@@ -51,12 +51,20 @@ require_once 'settings.php';
 
 function enqueue_scripts()
 {
-    // Vendor styles and scripts
+    $version = Constants::$VERSION;
 
-    // Starter Plugin styles and scripts
-    wp_enqueue_style(Constants::$SLUG . '-css',  plugin_dir_url(__FILE__) . 'style.css');
-    wp_enqueue_script(Constants::$SLUG . '-js',  plugin_dir_url(__FILE__) . 'assets/js/main.js', ['wp-i18n']);
-    wp_set_script_translations(Constants::$SLUG, Constants::$SLUG);
+    // Plugin CSS
+    wp_enqueue_style("starter-plugin-{$version}", get_stylesheet_uri());
+
+    // Plugin JS
+    wp_enqueue_script("starter-plugin-{$version}", get_template_directory_uri() . '/assets/js/main.js', ['wp-i18n']);
+
+    // Vendor CSS
+
+    // Vendor JS
+
+    // Filter for Plugin JS (allows modules and adds API endpoint)
+    add_filter('script_loader_tag', __NAMESPACE__ . '\\script_modify', 10, 3);
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts');
 
@@ -68,16 +76,22 @@ function enqueue_admin_scripts()
 add_action('admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_admin_scripts');
 
 
-// Make sure Javascript is loaded as a module and include the API endpoint
+// From: https://stackoverflow.com/questions/58931144/enqueue-javascript-with-type-module
+// Adds module tag and API endpoint to starter-plugin-js script
 function script_modify($tag, $handle, $src)
 {
-    if ($handle !== Constants::$SLUG . '-js' && $handle !== Constants::$SLUG . '-js-admin') return $tag;
+    $version = Constants::$VERSION;
+
+    if (!in_array($handle, ["starter-plugin-{$version}"])) { // Add additional handles if necessary
+        return $tag;
+    }
 
     $CONSTANTS = new Constants();
-    $api_endpoint = get_home_url() . '/wp-json/' . $CONSTANTS::$API_ENDPOINT . '/v' . $CONSTANTS->api_version;
-    return sprintf('<script id="%s" src="%s" type="module" data-api="%s"></script>', $handle, esc_url($src), $api_endpoint);
+
+    $api_endpoint = get_home_url() . '/wp-json/' . $CONSTANTS->API_ROOT;
+    $tag = sprintf('<script id="%s" type="module" data-api="%s" src="%s"></script>', $handle, $api_endpoint, esc_url($src));
+    return $tag;
 }
-add_filter('script_loader_tag', __NAMESPACE__ . '\\script_modify', 10, 3);
 
 
 // Register API routes

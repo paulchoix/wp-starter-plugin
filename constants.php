@@ -8,7 +8,7 @@ class Constants
     /**
      * Version
      */
-    public static $PLUGIN_VERSION = '1.0.0';
+    public static $VERSION = '1.0.0';
 
     /**
      * Global
