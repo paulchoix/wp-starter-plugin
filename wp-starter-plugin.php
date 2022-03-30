@@ -1,4 +1,5 @@
 <?php
+
 namespace Starter_Plugin;
 
 /*
@@ -18,8 +19,8 @@ Domain Path: /languages
 // Uncomment if using Composer
 // require_once( 'vendor/autoload.php' );
 
-require_once( 'constants.php' );
-require_once( 'helpers.php' );
+require_once('constants.php');
+require_once('helpers.php');
 
 use Starter_Plugin\Constants;
 
@@ -36,7 +37,7 @@ function activate()
     if ( ! is_dir( $upload_directory ) ) wp_mkdir_p( $upload_directory );
     //if ( ! is_dir( implode( '/', [ $upload_directory, 'subdirectory' ] ) ) ) wp_mkdir_p( $upload_directory );*/
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\\activate' );
+register_activation_hook(__FILE__, __NAMESPACE__ . '\\activate');
 
 
 // Hook database setup to activation
@@ -53,37 +54,37 @@ function enqueue_scripts()
     // Vendor styles and scripts
 
     // Starter Plugin styles and scripts
-    wp_enqueue_style( Constants::$slug . '-css',  plugin_dir_url( __FILE__ ) . 'style.css' );
-    wp_enqueue_script( Constants::$slug . '-js',  plugin_dir_url( __FILE__ ) . 'assets/js/main.js', ['wp-i18n'] );
-    wp_set_script_translations( Constants::$slug, Constants::$slug );
+    wp_enqueue_style(Constants::$SLUG . '-css',  plugin_dir_url(__FILE__) . 'style.css');
+    wp_enqueue_script(Constants::$SLUG . '-js',  plugin_dir_url(__FILE__) . 'assets/js/main.js', ['wp-i18n']);
+    wp_set_script_translations(Constants::$SLUG, Constants::$SLUG);
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts' );
+add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts');
 
 
 function enqueue_admin_scripts()
 {
-    //wp_enqueue_script( Constants::$slug . '-js-admin',  plugin_dir_url( __FILE__ ) . 'assets/js/admin.js' );         
+    //wp_enqueue_script( Constants::$SLUG . '-js-admin',  plugin_dir_url( __FILE__ ) . 'assets/js/admin.js' );         
 }
-add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_admin_scripts' );
+add_action('admin_enqueue_scripts', __NAMESPACE__ . '\\enqueue_admin_scripts');
 
 
 // Make sure Javascript is loaded as a module and include the API endpoint
-function script_modify( $tag, $handle, $src )
+function script_modify($tag, $handle, $src)
 {
-    if ( $handle !== Constants::$slug . '-js' && $handle !== Constants::$slug . '-js-admin' ) return $tag;
-    
+    if ($handle !== Constants::$SLUG . '-js' && $handle !== Constants::$SLUG . '-js-admin') return $tag;
+
     $CONSTANTS = new Constants();
-    $api_endpoint = get_home_url() . '/wp-json/' . $CONSTANTS::$api_endpoint . '/v' . $CONSTANTS->api_version;
-    return sprintf( '<script id="%s" src="%s" type="module" data-api="%s"></script>', $handle, esc_url( $src ), $api_endpoint );
+    $api_endpoint = get_home_url() . '/wp-json/' . $CONSTANTS::$API_ENDPOINT . '/v' . $CONSTANTS->api_version;
+    return sprintf('<script id="%s" src="%s" type="module" data-api="%s"></script>', $handle, esc_url($src), $api_endpoint);
 }
-add_filter( 'script_loader_tag', __NAMESPACE__ . '\\script_modify', 10, 3 );
+add_filter('script_loader_tag', __NAMESPACE__ . '\\script_modify', 10, 3);
 
 
 // Register API routes
 add_action('rest_api_init', function () {
     $CONSTANTS = new Constants();
-    
-    /*register_rest_route( Constants::$api_endpoint . '/v' . $constants->api_version, 'resource', [
+
+    /*register_rest_route( Constants::$API_ROOT, 'resource', [
       'methods' => 'GET',
       'callback' => 'function',
       'permission_callback' => '__return_true', // This makes the endpoint public
@@ -94,6 +95,6 @@ add_action('rest_api_init', function () {
 // Load translation files
 function load_textdomain()
 {
-    load_plugin_textdomain( 'starter-plugin', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+    load_plugin_textdomain('starter-plugin', false, dirname(plugin_basename(__FILE__)) . '/languages');
 }
-add_action( 'init', __NAMESPACE__ . '\\load_textdomain' );
+add_action('init', __NAMESPACE__ . '\\load_textdomain');
