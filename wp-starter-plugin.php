@@ -53,11 +53,11 @@ function enqueue_scripts()
 {
     $version = Constants::$VERSION;
 
-    // Plugin CSS
-    wp_enqueue_style("starter-plugin-{$version}", get_stylesheet_uri());
+    // Theme CSS
+    wp_enqueue_style("starter-plugin-{$version}", plugin_dir_url(__FILE__) . 'style.css');
 
-    // Plugin JS
-    wp_enqueue_script("starter-plugin-{$version}", get_template_directory_uri() . '/assets/js/main.js', ['wp-i18n']);
+    // Theme JS
+    wp_enqueue_script("starter-plugin-{$version}", plugin_dir_url(__FILE__) . 'assets/js/main.js');
 
     // Vendor CSS
 
