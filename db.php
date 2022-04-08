@@ -1,4 +1,5 @@
 <?php
+
 namespace Starter_Plugin\DB;
 
 use Starter_Plugin\Constants;
@@ -49,18 +50,16 @@ class DatabaseTables
     {
         global $wpdb;
         $this->charset_collate = $wpdb->get_charset_collate();
-        $this->prefix = $wpdb->prefix . Constants::$db_prefix;
+        $this->prefix = $wpdb->prefix . Constants::$DB_PREFIX;
     }
 
     public function run()
     {
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        try
-        {
-            foreach ( $this->queries as $table => $query ) dbDelta( sprintf( $query, $this->prefix . $table, $this->charset_collate ) );
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        try {
+            foreach ($this->queries as $table => $query) dbDelta(sprintf($query, $this->prefix . $table, $this->charset_collate));
             return true;
-        } catch ( \Exception $e )
-        {
+        } catch (\Exception $e) {
             return $e;
         }
     }

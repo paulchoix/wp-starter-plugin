@@ -1,4 +1,5 @@
 <?php
+
 namespace Starter_Plugin\Settings;
 
 use Starter_Plugin\Constants;
@@ -6,19 +7,19 @@ use Starter_Plugin\Constants;
 // Register configuration options
 function init()
 {
-    register_setting( Constants::$snake, Constants::$settings, ['type' => 'object']);
+    register_setting(Constants::$SNAKE, Constants::$SETTINGS, ['type' => 'object']);
 
     /*add_settings_section(
         'starter_section',
         __( 'Starter Plugin Section', 'starter-plugin' ),
         __NAMESPACE__ . '\\starter_section_callback',
-        Constants::$snake
+        Constants::$SNAKE
     );
     add_settings_field(
         'starter_field',
         __( 'Starter Plugin Field', 'starter-plugin' ),
         __NAMESPACE__ . '\\starter_field_callback',
-        Constants::$snake,
+        Constants::$SNAKE,
         'section',
         ['label_for' => 'starter_field']
     );*/
@@ -45,28 +46,28 @@ function starter_field_callback( $args )
 // Settings Page
 function page_html()
 {
-    if ( !current_user_can( 'manage_options' ) ) return;
-    ?>
+    if (!current_user_can('manage_options')) return;
+?>
     <div class="wrap">
-        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
         <form action="options.php" method="post">
             <?php
-            settings_fields( Constants::$snake );
-            do_settings_sections( Constants::$snake );
-            submit_button( __( 'Save', 'starter-plugin' ) );
+            settings_fields(Constants::$SNAKE);
+            do_settings_sections(Constants::$SNAKE);
+            submit_button(__('Save', 'starter-plugin'));
             ?>
         </form>
     </div>
-    <?php
+<?php
 }
 
 function page()
 {
     add_menu_page(
-        __( 'Starter Plugin', 'starter-plugin' ),
-        __( 'Starter Plugin', 'starter-plugin' ),
+        __('Starter Plugin', 'starter-plugin'),
+        __('Starter Plugin', 'starter-plugin'),
         'manage_options',
-        Constants::$snake,
+        Constants::$SNAKE,
         __NAMESPACE__ . '\\page_html',
         'dashicons-admin-settings' // For more Dashicons: https://developer.wordpress.org/resource/dashicons/
     );
