@@ -7,7 +7,7 @@ export class API_Request {
       },
     };
     if (type) this.base_params.headers["Content-Type"] = type; // If type is set to null or false, Content-Type will be inferred
-    this.script = document.getElementById("script[id^=starter-plugin-]");
+    this.script = document.querySelector("script[id^=starter-plugin-]");
     this.api_endpoint = this.script.dataset.api;
   }
 
