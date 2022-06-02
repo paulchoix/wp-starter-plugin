@@ -20,7 +20,7 @@ function init()
         __( 'Starter Plugin Field', 'starter-plugin' ),
         __NAMESPACE__ . '\\starter_field_callback',
         Constants::$SNAKE,
-        'section',
+        'starter_section',
         ['label_for' => 'starter_field']
     );*/
 }
@@ -33,11 +33,11 @@ function init()
 
 function starter_field_callback( $args )
 {
-    $settings = get_option( Constants::$settings );
+    $settings = get_option( Constants::$SETTINGS );
     ?>
     <input
         type="text"
-        name="<?php echo Constants::$settings; ?>[<?php echo esc_attr( $args['label_for'] ); ?>]"
+        name="<?php echo Constants::$SETTINGS; ?>[<?php echo esc_attr( $args['label_for'] ); ?>]"
         value="<?php echo isset( $settings[$args['label_for']] ) ? esc_attr( $settings[$args['label_for']] ) : ''; ?>"
     ></input>
     <?php

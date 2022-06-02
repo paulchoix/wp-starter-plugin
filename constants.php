@@ -38,6 +38,6 @@ class Constants
     function __construct(array $args = [])
     {
         $this->DB_VERSION = array_key_exists('db_version', $args) ? (int) $args['db_version'] : '1.0'; // [WARNING] Not currently being used in this starter
-        $this->API_ROOT = array_key_exists('api_version', $args) ? $this::$API_ENDPOINT . '/v' . $args['api_version'] : 1;
+        $this->API_ROOT = array_key_exists('api_version', $args) ? $this::$API_ENDPOINT . '/v' . $args['api_version'] : $this::$API_ENDPOINT . '/v' . 1;
     }
 }

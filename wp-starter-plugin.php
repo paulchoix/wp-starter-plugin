@@ -3,7 +3,7 @@
 namespace Starter_Plugin;
 
 /*
-Plugin Name: WP Starter Plugin
+Plugin Name: Starter Plugin
 Description: A basic starter plugin for Wordpress.
 Author: Paolo Miriello
 Author URI: https://developer.wordpress.com
@@ -98,7 +98,7 @@ function script_modify($tag, $handle, $src)
 add_action('rest_api_init', function () {
     $CONSTANTS = new Constants();
 
-    /*register_rest_route( Constants::$API_ROOT, 'resource', [
+    /*register_rest_route( $CONSTANTS->API_ROOT, 'resource', [
       'methods' => 'GET',
       'callback' => 'function',
       'permission_callback' => '__return_true', // This makes the endpoint public
