@@ -1,4 +1,4 @@
-# Starter Plugin
+# WP Starter Plugin
 
 Just another Wordpress Starter Plugin using namespaces.
 
