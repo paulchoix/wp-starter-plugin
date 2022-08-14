@@ -28,16 +28,16 @@ function init()
 
 /*function starter_section_callback()
 {
-    _e( '<p>Description for the starter plugin section.</p>', 'starter-plugin' );
+    echo sprintf('<p>%s</p>', __( 'Description for the starter plugin section.', 'starter-plugin' ));
 }
 
 function starter_field_callback( $args )
 {
-    $settings = get_option( Constants::$SETTINGS );
+    $settings = get_option( $args['settings'] );
     ?>
     <input
         type="text"
-        name="<?php echo Constants::$SETTINGS; ?>[<?php echo esc_attr( $args['label_for'] ); ?>]"
+        name="<?php echo $args['settings']; ?>[<?php echo esc_attr( $args['label_for'] ); ?>]"
         value="<?php echo isset( $settings[$args['label_for']] ) ? esc_attr( $settings[$args['label_for']] ) : ''; ?>"
     ></input>
     <?php
